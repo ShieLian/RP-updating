@@ -206,7 +206,9 @@ public class RedPowerBase
         OreDictionary.registerOre("nuggetTin", itemNuggetTin);
         OreDictionary.registerOre("nuggetCopper", itemNuggetCopper);
         itemDrawplateDiamond = new ItemDrawplate(Config.getItemID("items.base.drawplateDiamond.id"));
+        
         /**@Corrected@Unknown*/
+
         itemDrawplateDiamond.setUnlocalizedName("drawplateDiamond").setMaxDamage(255).setTextureName("RedPower/base:27");
         itemBag = new ItemBag(Config.getItemID("items.base.bag.id"));
         GameRegistry.addRecipe(new ItemStack(itemBag, 1, 0), new Object[] {"CCC", "C C", "CCC", 'C', itemCanvas});
@@ -303,6 +305,7 @@ public class RedPowerBase
         CoverLib.addMaterial(0, 1, Block.cobblestone, "cobble", "Cobblestone");
         CoverLib.addMaterial(1, 1, Block.stone, "stone", "Stone");
         CoverLib.addMaterial(2, 0, Block.planks, "planks", "Wooden Plank");
+        
         /*CoverLib.addMaterial(3, 1, Block.sandStone, "sandstone", "Sandstone");
         CoverLib.addMaterial(4, 1, Block.cobblestoneMossy, "moss", "Moss Stone");
         CoverLib.addMaterial(5, 1, Block.brick, "brick", "Brick");
@@ -376,6 +379,7 @@ public class RedPowerBase
         itemHandsawIron = new ItemHandsaw(Config.getItemID("items.base.handsawIron.id"), 0);
         itemHandsawDiamond = new ItemHandsaw(Config.getItemID("items.base.handsawDiamond.id"), 2);
         itemHandsawIron.setUnlocalizedName("handsawIron").setTextureName("RedPower/base:17");/**@Unknown*/
+
         itemHandsawIron.setMaxDamage(320);
         itemHandsawDiamond.setUnlocalizedName("handsawDiamond").setTextureName("RedPower/base:18");
         itemHandsawDiamond.setMaxDamage(1280);
