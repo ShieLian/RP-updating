@@ -2,11 +2,16 @@ package com.eloraam.redpower.core;
 
 import com.eloraam.redpower.core.CoverLib$IMaterialHandler;
 import com.eloraam.redpower.core.CoverLib$PlacementValidator;
+
+import cpw.mods.fml.common.ObfuscationReflectionHelper;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Iterator;
+
 import net.minecraft.block.Block;
+import net.minecraft.block.BlockStem;
 import net.minecraft.entity.Entity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.MovingObjectPosition;
@@ -22,7 +27,7 @@ public class CoverLib
     private static int[] hardness = new int[256];
     private static ArrayList materialHandlers = new ArrayList();
     private static boolean[] transparency = new boolean[256];
-    public static int[][] coverTextures = new int[256][];
+    public static String[][] coverTextures = new String[256][];
     public static String[] coverTextureFiles = new String[256];
     private static float[] miningHardness = new float[256];
     private static HashMap coverIndex = new HashMap();
@@ -60,36 +65,36 @@ public class CoverLib
         addMaterial(var0, var1, var2, var3, 0, var4, var5);
     }
 
-    public static void addMaterial(int var0, int var1, boolean var2, Block var3, int var4, String var5, String var6)
+    public static void addMaterial(int var0, int var1, boolean var2, Block block, int metadata, String var5, String var6)
     {
-        ItemStack var8 = new ItemStack(var3, 1, var4);
-        coverTextures[var0] = new int[6];
+        ItemStack itemstack = new ItemStack(block, 1, metadata);
+        coverTextures[var0] = new String[6];
 
-        for (int var7 = 0; var7 < 6; ++var7)
+        for (int side = 0; side < 6; ++side)
         {
-            coverTextures[var0][var7] = var3.getBlockTextureFromSideAndMetadata(var7, var4);
+            coverTextures[var0][side] = block.getIcon(side, metadata).getIconName();
         }
 
-        if (!var3.isDefaultTexture)
+        if (!block.getItemIconName().contains("MISS"))/**@Unknown*/
         {
-            coverTextureFiles[var0] = var3.getTextureFile();
+            coverTextureFiles[var0] = reflect_getTextureName(block);
         }
 
-        if (var3 instanceof IBlockHardness)
+        if (block instanceof IBlockHardness)
         {
-            miningHardness[var0] = ((IBlockHardness)var3).getPrototypicalHardness(var4);
+            miningHardness[var0] = ((IBlockHardness)block).getPrototypicalHardness(metadata);
         }
         else
         {
-            miningHardness[var0] = var3.getBlockHardness((World)null, 0, 0, 0);
+            miningHardness[var0] = block.getBlockHardness((World)null, 0, 0, 0);
         }
 
-        materials[var0] = var8;
+        materials[var0] = itemstack;
         names[var0] = var5;
         descs[var0] = var6;
         hardness[var0] = var1;
         transparency[var0] = var2;
-        coverIndex.put(Arrays.asList(new Integer[] {Integer.valueOf(var3.blockID), Integer.valueOf(var4)}), Integer.valueOf(var0));
+        coverIndex.put(Arrays.asList(new Integer[] {Integer.valueOf(block.blockID), Integer.valueOf(metadata)}), Integer.valueOf(var0));
         Iterator var9 = materialHandlers.iterator();
 
         while (var9.hasNext())
@@ -131,7 +136,7 @@ public class CoverLib
         Config.addName("tile.rppole3." + var5 + ".name", var6 + " Column");
     }
 
-    public static int damageToCoverData(int var0)
+	public static int damageToCoverData(int var0)
     {
         int var1 = var0 >> 8;
         int var2 = var0 & 255;
@@ -805,7 +810,7 @@ public class CoverLib
 
     private static boolean canAddCover(World var0, MovingObjectPosition var1, int var2)
     {
-        if (var0.canPlaceEntityOnSide(blockCoverPlate.blockID, var1.blockX, var1.blockY, var1.blockZ, false, var1.sideHit, (Entity)null))
+        if (var0.canPlaceEntityOnSide(blockCoverPlate.blockID, var1.blockX, var1.blockY, var1.blockZ, false, var1.sideHit, (Entity)null,(ItemStack)null))
         {
             return true;
         }
@@ -1272,7 +1277,7 @@ public class CoverLib
         {
             if (var4 != 0)
             {
-                var0.setBlockAndMetadata(var1, var2, var3, blockCoverPlate.blockID, 0);
+                var0.setBlock(var1, var2, var3, blockCoverPlate.blockID, 0,3);
                 TileCovered var6 = (TileCovered)CoreLib.getTileEntity(var0, var1, var2, var3, TileCovered.class);
 
                 if (var6 != null)
@@ -1313,7 +1318,7 @@ public class CoverLib
                 int var9 = var4.CoverSides;
                 BlockMultipart.removeMultipart(var0, var1.x, var1.y, var1.z);
 
-                if (!var0.setBlockAndMetadata(var1.x, var1.y, var1.z, var2, var5))
+                if (!var0.setBlock(var1.x, var1.y, var1.z, var2, var5,3))
                 {
                     return false;
                 }
@@ -1372,4 +1377,11 @@ public class CoverLib
     {
         return transparency[var0];
     }
+
+    private static String reflect_getTextureName(Block block)
+    {
+    	String name=ObfuscationReflectionHelper.getPrivateValue(Block.class,block, ObfuscationReflectionHelper.remapFieldNames("Block", "textureName"));
+		return name == null ? "MISSING_ICON_TILE_" + block.blockID + "_" + block.getUnlocalizedName().substring(5) : name;
+	}
+
 }

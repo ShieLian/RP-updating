@@ -19,7 +19,7 @@ public class CoverRenderer
     public int covmaskt;
     public int covmaskh;
     public int covmasko;
-    protected static int[][] coverTextures = CoverLib.coverTextures;
+    protected static String[][] coverTextures = CoverLib.coverTextures;
     protected static String[] coverTextureFiles = CoverLib.coverTextureFiles;
     protected RenderContext context;
 

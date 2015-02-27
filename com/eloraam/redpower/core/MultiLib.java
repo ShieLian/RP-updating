@@ -47,7 +47,7 @@ public class MultiLib
         while (var5.hasNext())
         {
             WorldCoord var6 = (WorldCoord)var5.next();
-            var0.setBlockAndMetadata(var6.x, var6.y, var6.z, RedPowerBase.blockMultiblock.blockID, var2);
+            var0.setBlock(var6.x, var6.y, var6.z, RedPowerBase.blockMultiblock.blockID, var2,3);
             TileMultiblock var7 = (TileMultiblock)CoreLib.getTileEntity(var0, var6, TileMultiblock.class);
 
             if (var7 != null)

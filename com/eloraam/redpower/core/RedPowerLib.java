@@ -229,7 +229,7 @@ public class RedPowerLib
     public static boolean isWeakPoweringTo(IBlockAccess var0, int var1, int var2, int var3, int var4)
     {
         int var5 = var0.getBlockId(var1, var2, var3);
-        return var5 == 0 ? false : (searching && var5 == Block.redstoneWire.blockID ? false : (Block.blocksList[var5].isProvidingWeakPower(var0, var1, var2, var3, var4) ? true : var4 > 1 && var5 == Block.redstoneWire.blockID && Block.blocksList[var5].isProvidingWeakPower(var0, var1, var2, var3, 1)));
+        return var5 == 0 ? false : (searching && var5 == Block.redstoneWire.blockID ? false : (Block.blocksList[var5].isProvidingWeakPower(var0, var1, var2, var3, var4)>0 ? true : var4 > 1 && var5 == Block.redstoneWire.blockID && Block.blocksList[var5].isProvidingWeakPower(var0, var1, var2, var3, 1)));
     }
 
     public static boolean isPoweringTo(IBlockAccess var0, int var1, int var2, int var3, int var4)

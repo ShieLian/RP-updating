@@ -21,9 +21,9 @@ public class RenderContext
     private TexVertex[][] cornerListBox = new TexVertex[6][4];
     private String[] texBinds = null;
     private String[] texBindsBox = new String[6];
-    private int[] texIndex;
-    private int[] texIndexBox = new int[6];
-    private int[][] texIndexList;
+    private String[] iconName;
+    private String[] iconNameBox = new String[6];
+    private String[][] iconNameList;
     public boolean lockTexture = false;
     public boolean exactTextureCoordinates = false;
     private int texFlags = 0;
@@ -137,62 +137,62 @@ public class RenderContext
         this.texFlags = var1;
     }
 
-    public void setTex(int var1, int var2, int var3, int var4, int var5, int var6)
+    public void setTex(String var1, String var2, String var3, String var4, String var5, String var6)
     {
         if (!this.lockTexture)
         {
-            this.texIndex = this.texIndexBox;
-            this.texIndex[0] = var1;
-            this.texIndex[1] = var2;
-            this.texIndex[2] = var3;
-            this.texIndex[3] = var4;
-            this.texIndex[4] = var5;
-            this.texIndex[5] = var6;
+            this.iconName = this.iconNameBox;
+            this.iconName[0] = var1;
+            this.iconName[1] = var2;
+            this.iconName[2] = var3;
+            this.iconName[3] = var4;
+            this.iconName[4] = var5;
+            this.iconName[5] = var6;
         }
     }
 
-    public void setTex(int var1)
+    public void setTex(String var1)
     {
         if (!this.lockTexture)
         {
-            this.texIndex = this.texIndexBox;
-            this.texIndex[0] = var1;
-            this.texIndex[1] = var1;
-            this.texIndex[2] = var1;
-            this.texIndex[3] = var1;
-            this.texIndex[4] = var1;
-            this.texIndex[5] = var1;
+            this.iconName = this.iconNameBox;
+            this.iconName[0] = var1;
+            this.iconName[1] = var1;
+            this.iconName[2] = var1;
+            this.iconName[3] = var1;
+            this.iconName[4] = var1;
+            this.iconName[5] = var1;
         }
     }
 
-    public void setTex(int[] var1)
+    public void setTex(String[] var1)
     {
         if (!this.lockTexture)
         {
-            this.texIndex = var1;
+            this.iconName = var1;
         }
     }
 
-    public void setTex(int[][] var1)
+    public void setTex(String[][] var1)
     {
         if (!this.lockTexture)
         {
-            this.texIndexList = var1;
-            this.texIndex = var1[0];
+            this.iconNameList = var1;
+            this.iconName = var1[0];
         }
     }
 
     public void setTexIndex(int var1)
     {
-        if (this.texIndexList != null)
+        if (this.iconNameList != null)
         {
-            this.texIndex = this.texIndexList[var1];
+            this.iconName = this.iconNameList[var1];
         }
     }
 
-    public void setTexNum(int var1, int var2)
+    public void setTexNum(int var1, String var2)
     {
-        this.texIndex[var1] = var2;
+        this.iconName[var1] = var2;
     }
 
     public void setTint(float var1, float var2, float var3)
@@ -302,6 +302,7 @@ public class RenderContext
 
     public void setSideUV(int var1, double var2, double var4, double var6, double var8)
     {
+    	//0.0625=1/16
         if (!this.exactTextureCoordinates)
         {
             var2 += 0.001D;
@@ -328,16 +329,16 @@ public class RenderContext
             var8 = 0.0625D - var8;
         }
 
-        int var11 = this.texIndex[var1];
-        double var12 = (double)(var11 & 15) * 0.0625D;
-        double var14 = (double)(var11 >> 4) * 0.0625D;
+        String var11 = this.iconName[var1];
+        double u = (double)(var11 & 15) * 0.0625D;//var11&15=var11%16
+        double v = (double)(var11 >> 4) * 0.0625D;//var11>>4=var11/16
 
         if ((var10 & 4) > 0)
         {
-            var2 += var14;
-            var4 += var14;
-            var6 += var12;
-            var8 += var12;
+            var2 += v;
+            var4 += v;
+            var6 += u;
+            var8 += u;
             this.cornerList[var1][0].setUV(var6, var2);
             this.cornerList[var1][1].setUV(var8, var2);
             this.cornerList[var1][2].setUV(var8, var4);
@@ -345,10 +346,10 @@ public class RenderContext
         }
         else
         {
-            var2 += var12;
-            var4 += var12;
-            var6 += var14;
-            var8 += var14;
+            var2 += u;
+            var4 += u;
+            var6 += v;
+            var8 += v;
             this.cornerList[var1][0].setUV(var2, var6);
             this.cornerList[var1][1].setUV(var2, var8);
             this.cornerList[var1][2].setUV(var4, var8);
@@ -364,12 +365,12 @@ public class RenderContext
         double var6;
         double var8;
 
-        if ((var1 & 3) > 0)
+        if ((var1 & 3) > 0)//var1%4!=0
         {
             var6 = 1.0D - this.boxSize2.x;
             var8 = 1.0D - this.boxSize1.x;
 
-            if ((var1 & 1) > 0)
+            if ((var1 & 1) > 0)//var1%2!=0
             {
                 var2 = 1.0D - this.boxSize2.z;
                 var4 = 1.0D - this.boxSize1.z;
@@ -433,9 +434,9 @@ public class RenderContext
 
     private void swaptex(int var1, int var2)
     {
-        int var3 = this.texIndexBox[var1];
-        this.texIndexBox[var1] = this.texIndexBox[var2];
-        this.texIndexBox[var2] = var3;
+        String var3 = this.iconNameBox[var1];
+        this.iconNameBox[var1] = this.iconNameBox[var2];
+        this.iconNameBox[var2] = var3;
     }
 
     public void orientTextures(int var1)
@@ -540,9 +541,9 @@ public class RenderContext
 
     private void swaptexfl(int var1, int var2)
     {
-        int var3 = this.texIndexBox[var1];
-        this.texIndexBox[var1] = this.texIndexBox[var2];
-        this.texIndexBox[var2] = var3;
+        String var3 = this.iconNameBox[var1];
+        this.iconNameBox[var1] = this.iconNameBox[var2];
+        this.iconNameBox[var2] = var3;
         var1 *= 3;
         var2 *= 3;
         int var4 = this.texFlags >> var1 & 7;
@@ -627,15 +628,15 @@ public class RenderContext
 
     public void orientTextureNew(int var1)
     {
-        int[] var2 = new int[6];
-        System.arraycopy(this.texIndexBox, 0, var2, 0, 6);
+        String[] var2 = new String[6];
+        System.arraycopy(this.iconNameBox, 0, var2, 0, 6);
         int[] var3 = texRotTable[var1];
         int var4 = 0;
         int var5;
 
         for (var5 = 0; var5 < 6; ++var5)
         {
-            this.texIndexBox[var5] = var2[var3[var5]];
+            this.iconNameBox[var5] = var2[var3[var5]];
             var4 |= (this.texFlags >> var3[var5] * 3 & 7) << var5 * 3;
         }
 

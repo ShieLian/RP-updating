@@ -115,7 +115,7 @@ public abstract class TileExtended extends TileEntity
             CoreLib.dropItem(this.worldObj, this.xCoord, this.yCoord, this.zCoord, var3);
         }
 
-        this.worldObj.setBlockWithNotify(this.xCoord, this.yCoord, this.zCoord, 0);
+        this.worldObj.setBlock(this.xCoord, this.yCoord, this.zCoord, 0);
     }
 
     /**

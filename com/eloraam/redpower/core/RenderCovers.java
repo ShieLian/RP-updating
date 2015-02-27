@@ -4,7 +4,7 @@ import net.minecraft.block.Block;
 
 public abstract class RenderCovers extends RenderCustomBlock
 {
-    protected static int[][] coverTextures = CoverLib.coverTextures;
+    protected static String[][] coverTextures = CoverLib.coverTextures;
     protected CoverRenderer coverRenderer;
     protected RenderContext context = new RenderContext();
 

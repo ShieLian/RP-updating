@@ -7,12 +7,16 @@ import com.eloraam.redpower.core.CoreProxy;
 import com.eloraam.redpower.core.CoverRecipe;
 import com.eloraam.redpower.core.Packet211TileDesc;
 import com.eloraam.redpower.core.Packet212GuiEvent;
+
 import cpw.mods.fml.common.Mod;
 import cpw.mods.fml.common.event.FMLInitializationEvent;
 import cpw.mods.fml.common.event.FMLPostInitializationEvent;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 import cpw.mods.fml.common.network.NetworkMod;
+
 import java.io.File;
+import java.io.IOException;
+
 import net.minecraft.item.crafting.CraftingManager;
 import net.minecraft.network.packet.Packet;
 import net.minecraft.world.World;
@@ -47,13 +51,17 @@ public class RedPowerCore
     public static final int idItemUpdate = 10;
     public static final int idPipeUpdate = 11;
     public static final int idLighting = 11;
+    public static String filelocation;
 
     @Mod.PreInit
-    public void preInit(FMLPreInitializationEvent var1)
+    public void preInit(FMLPreInitializationEvent var1) throws IOException
     {
         Config.loadConfig();
         CoreLib.readOres();
         MinecraftForge.EVENT_BUS.register(new CoreEvents());
+        File file=new File("");
+        filelocation=file.getCanonicalPath();
+        System.out.println(filelocation);
     }
 
     @Mod.Init

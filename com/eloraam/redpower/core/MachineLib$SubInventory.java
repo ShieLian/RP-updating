@@ -95,4 +95,16 @@ public class MachineLib$SubInventory implements IInventory
     public void openChest() {}
 
     public void closeChest() {}
+
+	@Override
+	public boolean isInvNameLocalized() {
+		// TODO 自动生成的方法存根
+		return false;
+	}
+
+	@Override
+	public boolean isItemValidForSlot(int i, ItemStack itemstack) {
+		// TODO 自动生成的方法存根
+		return false;
+	}
 }

@@ -70,7 +70,7 @@ public class RenderAlloyFurnace extends RenderCustomBlock
             int var8 = var7.Active ? 18 : 17;
             this.context.setPos((double)var3, (double)var4, (double)var5);
             this.context.readGlobalLights(var2, var3, var4, var5);
-            this.context.setTex(19, 19, var8, 16, 16, 16);
+            this.context.setTex("elorram:base/base1/19.png","elorram:base/base1/19.png","elorram:base/base1/"+var8+".png","elorram:base/base1/16.png","elorram:base/base1/16.png", "elorram:base/base1/16.png");
             this.context.rotateTextures(var7.Rotation);
             this.context.setSize(0.0D, 0.0D, 0.0D, 1.0D, 1.0D, 1.0D);
             this.context.setupBox();
@@ -90,7 +90,7 @@ public class RenderAlloyFurnace extends RenderCustomBlock
         RenderLib.bindTexture("/eloraam/base/base1.png");
         Tessellator var3 = Tessellator.instance;
         var3.startDrawingQuads();
-        this.context.setTex(19, 19, 16, 17, 16, 16);
+        this.context.setTex("elorram:base/base1/19.png","elorram:base/base1/19.png","elorram:base/base1/16.png","elorram:base/base1/17.png","elorram:base/base1/16.png","elorram:base/base1/16.png");
         this.context.renderBox(63, 0.0D, 0.0D, 0.0D, 1.0D, 1.0D, 1.0D);
         var3.draw();
         RenderLib.unbindTexture();

@@ -24,16 +24,16 @@ public class RenderAdvBench extends RenderCustomBlock
 
     public void renderWorldBlock(RenderBlocks var1, IBlockAccess var2, int var3, int var4, int var5, int var6)
     {
-        TileAdvBench var7 = (TileAdvBench)CoreLib.getTileEntity(var2, var3, var4, var5, TileAdvBench.class);
+        TileAdvBench tileAdvBench = (TileAdvBench)CoreLib.getTileEntity(var2, var3, var4, var5, TileAdvBench.class);
 
-        if (var7 != null)
+        if (tileAdvBench != null)
         {
             this.context.setDefaults();
             this.context.setLocalLights(0.5F, 1.0F, 0.8F, 0.8F, 0.6F, 0.6F);
             this.context.setPos((double)var3, (double)var4, (double)var5);
             this.context.readGlobalLights(var2, var3, var4, var5);
-            this.context.setTex(35, 32, 34, 33, 33, 33);
-            this.context.rotateTextures(var7.Rotation);
+            this.context.setTex("eloraam:base/base1/35.png","eloraam:base/base1/32.png","eloraam:base/base1/34.png","eloraam:base/base1/33.png","eloraam:base/base1/33.png","eloraam:base/base1/33.png");
+            this.context.rotateTextures(tileAdvBench.Rotation);
             this.context.setSize(0.0D, 0.0D, 0.0D, 1.0D, 1.0D, 1.0D);
             this.context.setupBox();
             this.context.transform();
@@ -52,7 +52,7 @@ public class RenderAdvBench extends RenderCustomBlock
         RenderLib.bindTexture("/eloraam/base/base1.png");
         Tessellator var3 = Tessellator.instance;
         var3.startDrawingQuads();
-        this.context.setTex(35, 32, 33, 34, 33, 33);
+        this.context.setTex("elorram:base/base1/35.png","elorram:base/base1/32.png","elorram:base/base1/33.png","elorram:base/base1/34.png","elorram:base/base1/33.png","elorram:base/base1/33.png");
         this.context.renderBox(63, 0.0D, 0.0D, 0.0D, 1.0D, 1.0D, 1.0D);
         var3.draw();
         RenderLib.unbindTexture();

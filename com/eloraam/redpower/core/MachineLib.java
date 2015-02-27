@@ -12,7 +12,7 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.tileentity.TileEntityChest;
 import net.minecraft.world.World;
 import net.minecraftforge.common.ForgeDirection;
-import net.minecraftforge.common.ISidedInventory;
+import net.minecraft.inventory.ISidedInventory;
 
 public class MachineLib
 {
@@ -69,8 +69,9 @@ public class MachineLib
         else if (var4 instanceof ISidedInventory)
         {
             ISidedInventory var5 = (ISidedInventory)var4;
-            int var6 = var5.getStartInventorySide(ForgeDirection.getOrientation(var2));
-            int var7 = var5.getSizeInventorySide(ForgeDirection.getOrientation(var2));
+            /**@Unknown*/
+            int var6 = MathUtil.getMinofList(var5.getAccessibleSlotsFromSide(ForgeDirection.getOrientation(var2).flag));
+            int var7 = var5.getAccessibleSlotsFromSide(ForgeDirection.getOrientation(var2).flag).length;
             return new MachineLib$SubInventory(var4, var6, var7);
         }
         else
@@ -95,8 +96,9 @@ public class MachineLib
             if (var5 instanceof ISidedInventory)
             {
                 ISidedInventory var8 = (ISidedInventory)var5;
-                var6 = var8.getStartInventorySide(ForgeDirection.getOrientation(var3));
-                var7 = var8.getSizeInventorySide(ForgeDirection.getOrientation(var3));
+                /**@Unknown*/
+                var6 = MathUtil.getMinofList(var8.getAccessibleSlotsFromSide(ForgeDirection.getOrientation(var3).flag));
+                var7 =var8.getAccessibleSlotsFromSide(ForgeDirection.getOrientation(var3).flag).length;
             }
 
             return addToInventoryCore(var5, var1, var6, var7, var4);

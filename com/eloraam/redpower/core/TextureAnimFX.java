@@ -1,11 +1,18 @@
 package com.eloraam.redpower.core;
 
 import cpw.mods.fml.client.FMLTextureFX;
+
 import java.awt.image.BufferedImage;
 import java.io.InputStream;
+
 import javax.imageio.ImageIO;
+
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.renderer.RenderEngine;
+import net.minecraft.client.renderer.texture.TextureManager;
+
+import net.minecraft.util.ResourceLocation;
+
+//import net.minecraft.client.renderer.RenderEngine;
 import org.lwjgl.opengl.GL11;
 
 public class TextureAnimFX extends FMLTextureFX
@@ -82,8 +89,9 @@ public class TextureAnimFX extends FMLTextureFX
         }
     }
 
-    public void bindImage(RenderEngine var1)
+    public void bindImage(TextureManager var1)
     {
-        GL11.glBindTexture(GL11.GL_TEXTURE_2D, var1.getTexture(this.textureFile));
+    	/**@Unknown*/
+        GL11.glBindTexture(GL11.GL_TEXTURE_2D, var1.getTexture(new ResourceLocation(this.textureFile)));
     }
 }

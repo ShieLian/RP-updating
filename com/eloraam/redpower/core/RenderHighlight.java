@@ -1,17 +1,21 @@
 package com.eloraam.redpower.core;
 
 import java.util.Iterator;
+
 import net.minecraft.block.Block;
 import net.minecraft.client.renderer.DestroyBlockProgress;
 import net.minecraft.client.renderer.RenderGlobal;
 import net.minecraft.client.renderer.Tessellator;
+import net.minecraft.client.renderer.texture.TextureObject;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumMovingObjectType;
 import net.minecraft.util.MovingObjectPosition;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
 import net.minecraftforge.client.event.DrawBlockHighlightEvent;
 import net.minecraftforge.event.ForgeSubscribe;
+
 import org.lwjgl.opengl.GL11;
 
 public class RenderHighlight
@@ -263,7 +267,7 @@ public class RenderHighlight
         this.context.setRelPos(0.0D, 0.0D, 0.0D);
     }
 
-    public void drawBreaking(World var1, RenderGlobal var2, BlockExtended var3, EntityPlayer var4, MovingObjectPosition var5, float var6, int var7)
+    public void drawBreaking(World var1, RenderGlobal render, BlockExtended var3, EntityPlayer var4, MovingObjectPosition var5, float var6, int var7)
     {
         if (var3 instanceof BlockMultipart)
         {
@@ -273,7 +277,8 @@ public class RenderHighlight
 
         GL11.glEnable(GL11.GL_BLEND);
         GL11.glBlendFunc(GL11.GL_DST_COLOR, GL11.GL_SRC_COLOR);
-        int var15 = var2.renderEngine.getTexture("/terrain.png");
+        //↓这TM啥鬼
+        TextureObject var15 = render.renderEngine.getTexture(new ResourceLocation("terrain.png"));
         GL11.glBindTexture(GL11.GL_TEXTURE_2D, var15);
         GL11.glColor4f(1.0F, 1.0F, 1.0F, 0.5F);
         GL11.glPolygonOffset(-3.0F, -3.0F);

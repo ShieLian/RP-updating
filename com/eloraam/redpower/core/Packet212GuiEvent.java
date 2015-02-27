@@ -1,8 +1,11 @@
 package com.eloraam.redpower.core;
 
 import java.io.ByteArrayInputStream;
+import java.io.DataInput;
 import java.io.DataInputStream;
+import java.io.DataOutput;
 import java.io.IOException;
+
 import net.minecraft.network.packet.NetHandler;
 
 public class Packet212GuiEvent extends PacketVLC
@@ -74,4 +77,16 @@ public class Packet212GuiEvent extends PacketVLC
     {
         CoreProxy.instance.processPacket212(this, var1);
     }
+
+	@Override
+	public void readPacketData(DataInput datainput) throws IOException {
+		// TODO 自动生成的方法存根
+		
+	}
+
+	@Override
+	public void writePacketData(DataOutput dataoutput) throws IOException {
+		// TODO 自动生成的方法存根
+		
+	}
 }
